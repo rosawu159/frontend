@@ -23,6 +23,18 @@
         />
       </div>
     </div>
+    
+    <div class="field">
+      <label class="label">Invoice ID</label>
+      <div class="control">
+        <input
+          class="input"
+          type="text"
+          placeholder="Date"
+          v-model="InvoiceID"
+        />
+      </div>
+    </div>
  
     <div class="control">
       <button class="button is-success" @click="saveInvoice">SAVE</button>
@@ -40,6 +52,7 @@ export default {
     return {
       InvoicePrice: "",
       InvoiceDate: "",
+      InvoiceID: "",
     };
   },
   methods: {
@@ -49,9 +62,11 @@ export default {
         await axios.post("http://localhost:5000/Invoices", {
           invoice_price: this.InvoicePrice,
           invoice_date: this.InvoiceDate,
+          invoice_id: this.InvoiceID,
         });
         this.InvoicePrice = "";
         this.InvoiceDate = "";
+        this.InvoiceID = "";
         this.$router.push("/");
       } catch (err) {
         console.log(err);

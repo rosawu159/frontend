@@ -25,6 +25,18 @@
       </div>
     </div>
 
+    <div class="field">
+      <label class="label">Invoice ID</label>
+      <div class="control">
+        <input
+          class="input"
+          type="text"
+          placeholder="ID"
+          v-model="InvoiceID"
+        />
+      </div>
+    </div>
+
     <div class="control">
       <button class="button is-success" @click="updateInvoice">UPDATE</button>
     </div>
@@ -41,6 +53,7 @@ export default {
     return {
       InvoicePrice: "",
       InvoiceDate: "",
+      InvoiceID: "",
     };
   },
   created: function () {
@@ -55,7 +68,8 @@ export default {
         );
         this.InvoicePrice = response.data.invoice_price;
         this.InvoiceDate = response.data.invoice_date;
-
+        this.InvoiceID = response.data.invoice_id;
+        console.log(response.data.invoice_price);
       } catch (err) {
         console.log(err);
       }
@@ -69,11 +83,12 @@ export default {
           {
             invoice_price: this.InvoicePrice,
             invoice_date: this.InvoiceDate,
-
+            invoice_id: this.InvoiceID,
           }
         );
         this.InvoicePrice = "";
         this.InvoiceDate = "";
+        this.InvoiceID = "";
         this.$router.push("/");
       } catch (err) {
         console.log(err);

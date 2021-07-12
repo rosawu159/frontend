@@ -8,22 +8,24 @@
         <tr>
           <th>Price</th>
           <th>Invoice Date</th>
+          <th>Invoice ID</th>
           <th class="has-text-centered">Actions</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in items" :key="item.invoice_id">
+        <tr v-for="item in items" :key="item.id">
           <td>{{ item.invoice_price }}</td>
           <td>{{ item.invoice_date }}</td>
+          <td>{{ item.invoice_id }}</td>
           <td class="has-text-centered">
             <router-link
-              :to="{ name: 'Edit', params: { id: item.invoice_id } }"
+              :to="{ name: 'Edit', params: { id: item.id } }"
               class="button is-info is-small"
               >Edit</router-link
             >
             <a
               class="button is-danger is-small"
-              @click="deleteInvoice(item.invoice_id)"
+              @click="deleteInvoice(item.id)"
               >Delete</a
             >
           </td>
