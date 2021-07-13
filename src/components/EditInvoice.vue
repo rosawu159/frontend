@@ -37,6 +37,18 @@
       </div>
     </div>
 
+    <div class="field">
+      <label class="label">Tag</label>
+      <div class="control">
+        <input
+          class="input"
+          type="text"
+          placeholder="Tag"
+          v-model="InvoiceTag"
+        />
+      </div>
+    </div>
+
     <div class="control">
       <button class="button is-success" @click="updateInvoice">UPDATE</button>
     </div>
@@ -54,6 +66,7 @@ export default {
       InvoicePrice: "",
       InvoiceDate: "",
       InvoiceID: "",
+      InvoiceTag: "",
     };
   },
   created: function () {
@@ -69,7 +82,7 @@ export default {
         this.InvoicePrice = response.data.invoice_price;
         this.InvoiceDate = response.data.invoice_date;
         this.InvoiceID = response.data.invoice_id;
-        console.log(response.data.invoice_price);
+        this.InvoiceTag = response.data.invoice_tag;
       } catch (err) {
         console.log(err);
       }
@@ -84,11 +97,14 @@ export default {
             invoice_price: this.InvoicePrice,
             invoice_date: this.InvoiceDate,
             invoice_id: this.InvoiceID,
+            invoice_tag: this.InvoiceTag,
           }
         );
         this.InvoicePrice = "";
         this.InvoiceDate = "";
         this.InvoiceID = "";
+        this.InvoiceTag = "";
+
         this.$router.push("/");
       } catch (err) {
         console.log(err);

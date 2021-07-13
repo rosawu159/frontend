@@ -35,6 +35,18 @@
         />
       </div>
     </div>
+
+    <div class="field">
+      <label class="label">Tag</label>
+      <div class="control">
+        <input
+          class="input"
+          type="text"
+          placeholder="Tag"
+          v-model="InvoiceTag"
+        />
+      </div>
+    </div>
  
     <div class="control">
       <button class="button is-success" @click="saveInvoice">SAVE</button>
@@ -53,6 +65,7 @@ export default {
       InvoicePrice: "",
       InvoiceDate: "",
       InvoiceID: "",
+      InvoiceTag: "",
     };
   },
   methods: {
@@ -63,10 +76,13 @@ export default {
           invoice_price: this.InvoicePrice,
           invoice_date: this.InvoiceDate,
           invoice_id: this.InvoiceID,
+          invoice_tag: this.InvoiceTag,
         });
         this.InvoicePrice = "";
         this.InvoiceDate = "";
         this.InvoiceID = "";
+        this.InvoiceTag = "";
+
         this.$router.push("/");
       } catch (err) {
         console.log(err);
