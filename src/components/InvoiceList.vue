@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div>
+      <h1>Hi {{ username }}</h1>
+      <input type="button" value="Logout" @click="logout" />
+    </div>
     <router-link :to="{ name: 'Create' }" class="button is-success mt-5"
       >Add New</router-link
     >
@@ -38,16 +42,23 @@
 <script>
 // import axios
 import axios from "axios";
- 
+import AuthService from '@/services/AuthService.js';
+
 export default {
   name: "InvoiceList",
   data() {
     return {
       items: [],
+      username: ''
     };
   },
- 
-  created() {
+  async created() {
+    if (!this.$store.getters.isLoggedIn) {
+      this.$router.push('/login');
+    }
+
+    this.username = this.$store.getters.getUser.username;
+    this.secretMessage = await AuthService.getSecretContent();
     this.getInvoices();
   },
  
@@ -71,6 +82,11 @@ export default {
         console.log(err);
       }
     },
+
+    logout() {
+      this.$store.dispatch('logout');
+      this.$router.push('/login');
+    }
   },
 };
 </script>
