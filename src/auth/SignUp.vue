@@ -2,20 +2,47 @@
 
 <template>
   <div>
-    <h1>Sign Up</h1>
-    <input type="text" placeholder="Username" v-model="username" />
-    <input type="text" placeholder="Password" v-model="password" />
-    <input
-      type="text"
-      placeholder="Password (repeat)"
-      v-model="password_repeat"
-    />
-    <input type="button" @click="signUp" value="Sign Up" />
-    <p v-if="msg">{{ msg }}</p>
+    <div class='rows' align="center">
+
+      <div class="columns mt-1">
+        <div class="column is-four-fifths">
+          <div class="icon-text">
+            <span class="icon has-text-info">
+              <font-awesome-icon icon="file-invoice-dollar" />
+            </span>
+            <span>BOOKKEEPING</span>
+          </div>
+        </div>
+      </div>
+
+      <div class='row is-full mb-3'> Sign Up </div>
+
+      <div class='row is-full mb-1'>
+        <input type="text" placeholder="Username" v-model="username" />
+      </div>
+
+      <div class='row is-full mb-1'>    
+        <input type="text" placeholder="Password" v-model="password" />
+      </div>
+
+
+      <div class='row is-full mb-1'>    
+        <input type="text" placeholder="Password (repeat)" v-model="password_repeat" />
+      </div>
+
+      <div class='row is-full mb-1 mt-3'> 
+        <input type="button" @click="signUp" :disabled="username == '' || password == '' || password_repeat == ''" value="Sign Up" class="button is-info is-small"/>
+      </div>
+      
+      <div class='row is-full mb-1'> 
+        <p v-if="msg">{{ msg }}</p>
+      </div>
+
+    </div>
   </div>
 </template>
 <script>
-import axios from "axios";
+import AuthService from '@/services/AuthService.js';
 
 export default {
   data() {
@@ -29,30 +56,19 @@ export default {
   methods: {
     async signUp() {
       try {
-        await axios.post("http://localhost:5000/sign-up", {
+        const credentials = {
           username: this.username,
           password: this.password,
-          password_repeat: this.password_repeat,
-        });
-        this.username = "";
-        this.password = "";
-        this.password_repeat = "";
-        this.$router.push("/login");
-      } catch (err) {
-        console.log(err);
+          password_repeat: this.password_repeat
+        };
+        const response = await AuthService.signUp(credentials);
+
+        this.msg = response.msg;
+        this.$router.push({ name: 'Login', params: { signupsuccess: "Signup success!" }})
+
+      } catch (error) {
+        this.msg = error.response.data.msg;
       }
-      // try {
-      //   const credentials = {
-      //     username: this.username,
-      //     password: this.password,
-      //     password_repeat: this.password_repeat
-      //   };
-      //   const response = await AuthService.signUp(credentials);
-      //   this.msg = response.msg;
-      //   this.$router.push('/');
-      // } catch (error) {
-      //   this.msg = error.response.data.msg;
-      // }
     }
   }
 };

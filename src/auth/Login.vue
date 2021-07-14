@@ -15,7 +15,11 @@
         </div>
       </div>
 
-      <div class='row is-full mb-3'> Login </div>
+      <div class='row is-full mb-2'>    
+        <p>{{ signupsuccess }}</p>
+      </div>
+
+      <div class='row is-full mb-3 mt-3'> Login </div>
 
       <div class='row is-full mb-1'>
         <input type="text" placeholder="Username" v-model="username" />
@@ -36,7 +40,7 @@
         </div>
       </div>
 
-      <div class='row is-full'>    
+      <div class='row is-full mb-1'>    
         <p v-if="msg">{{ msg }}</p>
       </div>
 
@@ -44,25 +48,6 @@
 
 
 
-    <!-- <div class="columns mt-1">
-      <div class="column is-four-fifths">
-        <div class="icon-text">
-          <span class="icon has-text-info">
-            <font-awesome-icon icon="file-invoice-dollar" />
-          </span>
-          <span>BOOKKEEPING</span>
-        </div>
-      </div>
-    </div>
-
-    <h1>Login</h1>
-    <input type="text" placeholder="Username" v-model="username" />
-    <input type="text" placeholder="Password" v-model="password" />
-    <input type="button" @click="login" value="Login" />
-    <p v-if="msg">{{ msg }}</p>
-    <div>
-      <input type="button" value="signup" @click="signup" />
-    </div> -->
   </div>
 
 </template>
@@ -74,7 +59,8 @@ export default {
     return {
       username: '',
       password: '',
-      msg: ''
+      msg: '',
+      signupsuccess: this.$route.params.signupsuccess
     };
   },
   methods: {
