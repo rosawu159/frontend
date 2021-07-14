@@ -9,6 +9,13 @@ import Login from "./auth/Login.vue";
 import Axios from 'axios';
 import store from './store';
 import Home from "./components/Home.vue";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faFileInvoiceDollar  } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+
+library.add(faFileInvoiceDollar )
+Vue.component('font-awesome-icon', FontAwesomeIcon)
+
 Vue.use(VueRouter)
 Vue.config.InvoiceionTip = false
 
@@ -54,5 +61,6 @@ const router = new VueRouter({ mode: 'history', routes: routes })
 new Vue({
   router,
   store,
+  components: { App },
   render: h => h(App),
 }).$mount('#app')
